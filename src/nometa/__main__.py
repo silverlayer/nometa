@@ -28,12 +28,14 @@ def main() -> None:
         formatter_class=RawDescriptionHelpFormatter
     )
 
+    dt_conv=lambda dts: datetime.strptime(dts,"%Y-%m-%dT%H:%M:%SZ")
+
     parser.add_argument("docpath", type=str, help="The document path")
     # properties of core.xml
     parser.add_argument("--creator", default=SUPPRESS, help="who has created the document")
     parser.add_argument("--last_modified_by", default=SUPPRESS, help="who has modified the document")
-    parser.add_argument("--created", default=SUPPRESS, type=datetime.fromisoformat, help="when the doc. has been created (ISO 8601 UTC)")
-    parser.add_argument("--modified", default=SUPPRESS, type=datetime.fromisoformat, help="when the doc. has been modified (ISO 8601 UTC)")
+    parser.add_argument("--created", default=SUPPRESS, type=dt_conv, help="when the doc. has been created (ISO 8601 UTC)")
+    parser.add_argument("--modified", default=SUPPRESS, type=dt_conv, help="when the doc. has been modified (ISO 8601 UTC)")
     parser.add_argument("--last_printed", default=SUPPRESS, help="when the doc. has been printed")
 
     # properties of app.xml
