@@ -1,0 +1,49 @@
+[project]
+name = "nometa"
+dynamic = ["version"]
+description = "Metadata editor for MS Office documents"
+authors = [
+    {name = "Kelvin S. Amorim", email = "kelvin.amorim@silverlayer.space"},
+]
+dependencies = ["lxml>=4.9.2"]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Office/Business",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
+version = {source = "file", path = "src/nometa/__init__.py"}
+
+[tool.pdm.scripts]
+clean = {shell = "rm tests/resource/test2*; rm -rf docs/build/*; find . -type d -name __pycache__ -exec rm -rf '{}' +"}
+gen_docs = {shell = "sphinx-build -M html docs/source docs/build"}
+
+[project.optional-dependencies]
+docs = ['sphinx','furo']
+
+[project.scripts]
+nometa = "nometa.__main__:main"
+
+[project.urls]
+repository = "https://github.com/silverlayer/nometa.git"
+issues = "https://github.com/silverlayer/nometa/issues"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+pythonpath = "src"
+testpaths = "tests"
